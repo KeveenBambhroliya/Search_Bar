@@ -15,37 +15,75 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="p-4">
-            <input
-                type="text"
-                className="border p-2 w-full mb-4"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button onClick={handleSearch} className="bg-blue-500 text-white p-2 rounded">
-                Search
-            </button>
+        <div className="max-w-2xl mx-auto p-6">
 
-            <div className="mt-4">
-                <h3 className="font-bold">YouTube Results:</h3>
-                {results.youtube.map((video) => (
-                    <div key={video.id.videoId} className="my-2">
-                        <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                            <p>{video.snippet.title}</p>
-                        </a>
-                        <img src={video.snippet.thumbnails.default.url} alt={video.snippet.title} />
-                    </div>
-                ))}
+            <div className="flex flex-col sm:flex-row items-center mb-6">
+                <input
+                    type="text"
+                    className="border p-2 rounded-md w-full sm:w-3/4 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 sm:mb-0 sm:mr-2"
+                    placeholder="Search for YouTube videos or Google results..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button
+                    onClick={handleSearch}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                >
+                    Search
+                </button>
+            </div>
 
-                <h3 className="font-bold mt-4">Google Results:</h3>
-                {results.google.map((item, index) => (
-                    <div key={index} className="my-2">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                            <p>{item.title}</p>
-                        </a>
+            <div className="space-y-8">
+                {/* YouTube Results */}
+                {results.youtube.length > 0 && (
+                    <div>
+                        <h3 className="text-xl font-semibold mb-4">YouTube Results</h3>
+                        <div className="space-y-4">
+                            {results.youtube.map((video) => (
+                                <div key={video.id.videoId} className="flex items-start space-x-4 bg-white p-4 rounded-md shadow-md hover:shadow-lg transition">
+                                    <img
+                                        src={video.snippet.thumbnails.default.url}
+                                        alt={video.snippet.title}
+                                        className="w-24 h-16 rounded-md"
+                                    />
+                                    <div className="flex-1">
+                                        <a
+                                            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-lg font-medium text-blue-600 hover:underline"
+                                        >
+                                            {video.snippet.title}
+                                        </a>
+                                        <p className="text-sm text-gray-500">{video.snippet.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                ))}
+                )}
+
+                {/* Google Results */}
+                {results.google.length > 0 && (
+                    <div>
+                        <h3 className="text-xl font-semibold mb-4">Google Results</h3>
+                        <div className="space-y-4">
+                            {results.google.map((item, index) => (
+                                <div key={index} className="p-4 bg-white rounded-md shadow-md hover:shadow-lg transition">
+                                    <a
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-lg font-medium text-blue-600 hover:underline"
+                                    >
+                                        {item.title}
+                                    </a>
+                                    <p className="text-sm text-gray-500">{item.snippet}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
