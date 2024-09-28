@@ -7,7 +7,7 @@ const SearchBar = () => {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/search?q=${searchTerm}`);
+            const response = await axios.get(`https://search-bar.onrender.com/api/search?q=${searchTerm}`);
             setResults(response.data);
         } catch (error) {
             console.error('Error fetching results:', error);
