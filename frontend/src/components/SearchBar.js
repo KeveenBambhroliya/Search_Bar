@@ -16,7 +16,6 @@ const SearchBar = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6">
-
             <div className="flex flex-col sm:flex-row items-center mb-6">
                 <input
                     type="text"
@@ -37,7 +36,7 @@ const SearchBar = () => {
                 {/* YouTube Results */}
                 {results.youtube.length > 0 && (
                     <div>
-                        <h3 className="text-xl font-semibold mb-4">YouTube Results</h3>
+                        <h3 className="text-xl font-semibold mb-4">Videos</h3>
                         <div className="space-y-4">
                             {results.youtube.map((video) => (
                                 <div key={video.id.videoId} className="flex items-start space-x-4 bg-white p-4 rounded-md shadow-md hover:shadow-lg transition">
@@ -70,6 +69,9 @@ const SearchBar = () => {
                         <div className="space-y-4">
                             {results.google.map((item, index) => (
                                 <div key={index} className="p-4 bg-white rounded-md shadow-md hover:shadow-lg transition">
+                                    {item.image && ( 
+                                        <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded-md mb-2" />
+                                    )}
                                     <a
                                         href={item.link}
                                         target="_blank"
