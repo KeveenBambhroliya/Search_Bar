@@ -33,43 +33,66 @@ const SearchBar = () => {
             </div>
 
             <div className="space-y-8">
-                {/* YouTube Results */}
-                {results.youtube.length > 0 && (
+                {/* Google Results - First Two */}
+                {results.google.length > 0 && (
                     <div>
-                        <h3 className="text-xl font-semibold mb-4">Videos</h3>
-                        <div className="space-y-4">
-                            {results.youtube.map((video) => (
-                                <div key={video.id.videoId} className="flex items-start space-x-4 bg-white p-4 rounded-md shadow-md hover:shadow-lg transition">
-                                    <img
-                                        src={video.snippet.thumbnails.default.url}
-                                        alt={video.snippet.title}
-                                        className="w-24 h-16 rounded-md"
-                                    />
-                                    <div className="flex-1">
-                                        <a
-                                            href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-lg font-medium text-blue-600 hover:underline"
-                                        >
-                                            {video.snippet.title}
-                                        </a>
-                                        <p className="text-sm text-gray-500">{video.snippet.description}</p>
-                                    </div>
+                        <h3 className="text-xl font-semibold mb-4">Top Google Results</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {results.google.slice(0, 2).map((item, index) => (
+                                <div key={index} className="p-4 bg-white rounded-md shadow-md hover:shadow-lg transition">
+                                    {item.image && (
+                                        <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded-md mb-2" />
+                                    )}
+                                    <a
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-lg font-medium text-blue-600 hover:underline"
+                                    >
+                                        {item.title}
+                                    </a>
+                                    <p className="text-sm text-gray-500">{item.snippet}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 )}
 
-                {/* Google Results */}
-                {results.google.length > 0 && (
+                {/* YouTube Results - Three Videos  */}
+                {results.youtube.length > 0 && (
                     <div>
-                        <h3 className="text-xl font-semibold mb-4">Google Results</h3>
+                        <h3 className="text-xl font-semibold mb-4">Videos</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {results.youtube.slice(0, 3).map((video) => (
+                                <div key={video.id.videoId} className="flex flex-col bg-white p-4 rounded-md shadow-md hover:shadow-lg transition">
+                                    <img
+                                        src={video.snippet.thumbnails.default.url}
+                                        alt={video.snippet.title}
+                                        className="w-full h-36 rounded-md mb-2"
+                                    />
+                                    <a
+                                        href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-lg font-medium text-blue-600 hover:underline"
+                                    >
+                                        {video.snippet.title}
+                                    </a>
+                                    <p className="text-sm text-gray-500">{video.snippet.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Remaining Google Results */}
+                {results.google.length > 2 && (
+                    <div>
+                        <h3 className="text-xl font-semibold mb-4">More Google Results</h3>
                         <div className="space-y-4">
-                            {results.google.map((item, index) => (
+                            {results.google.slice(2).map((item, index) => (
                                 <div key={index} className="p-4 bg-white rounded-md shadow-md hover:shadow-lg transition">
-                                    {item.image && ( 
+                                    {item.image && (
                                         <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded-md mb-2" />
                                     )}
                                     <a

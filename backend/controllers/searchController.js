@@ -7,7 +7,7 @@ const fetchYouTubeResults = async (searchTerm) => {
         params: {
             q: searchTerm ,
             part: 'snippet',
-            maxResults: 5,
+            maxResults: 2,
             key: YOUTUBE_API_KEY,
         },
     });
